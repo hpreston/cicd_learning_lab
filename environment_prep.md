@@ -62,16 +62,19 @@ Drone provides a method to create an encrypted file with needed secrets that can
     # Use the address provided by the lab administrator
     export DRONE_SERVER=http://DRONE_SERVER
     ```
+
 2.  Find your personal Drone token by viewing your profile in the drone console.  Click the down arrow next to your picture in the upper right corner and navigate to _Profile_.  Click the button to _Show Token_ and copy the displayed value.
     ```
     # Configure your token
     export DRONE_TOKEN=<your token>
     ```
+
 3. Test the command line tools by listing the repositories configured.  You should see your cicd_demoapp listed like below.
     ```
     $ drone repo ls
     hpreston/cicd_demoapp
     ```
+
 4. Next we will create the clear text version of our secrets file.  This file is only used to build the encrypted version and should **NEVER** be added to or commited to your repo.  A sample template for the secrets file was included in the demo app.  We will copy this file and edit it.
     ```
     cp drone_secrets_sample.yml drone_secrets.yml
@@ -96,6 +99,7 @@ Drone provides a method to create an encrypted file with needed secrets that can
     # Replace USERNAME with your GitHub username
     drone secure --repo USERNAME/cicd_demoapp --in drone_secrets.yml
     ```
+
 8. Add this file to git, commit and push it to GitHub.  When you `git push` you may be prompted for your GitHub credentials, provide them.
     ```
     # add the file to the git repo
@@ -107,6 +111,7 @@ Drone provides a method to create an encrypted file with needed secrets that can
     # push changes to GitHub
     git push
     ```
+
 9. Return to the drone server web interface and look at your repo status.  You should see a build has kicked off.
 
     ![Drone Build](images/drone_1st_build.png)
