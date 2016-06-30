@@ -13,6 +13,7 @@ In the root of the code repository is a file _.drone.yml_ that provides the inst
       commands:
         - env
     ```
+
 2. Add a new line to the file that will send an informational notice to the Spark room (identified by the roomId stored in the secrets file) that a new build has started.  This command uses curl to send an API call to Cisco Spark.  Within the command we reference the variables in the secrets file with **$$SPARK_TOKEN** reference.
     ```
     build:
@@ -21,11 +22,13 @@ In the root of the code repository is a file _.drone.yml_ that provides the inst
         - env
         - curl https://api.ciscospark.com/v1/messages -X POST -H "Authorization:Bearer $$SPARK_TOKEN" --data "roomId=$$SPARK_ROOM" --data "text=Drone kicking off build $CI_BUILD_NUMBER"
     ```
+
 3. As part of the security of drone, every chance to the _.drone.yml_ file requires the secrets file to be recreated.  Sense we've updated this file, we need to resecure our secrets.
     ```
     # Replace USERNAME with your GitHub username
     drone secure --repo USERNAME/cicd_demoapp --in drone_secrets.yml
     ```
+
 4. Now commit and push the changes to the drone configuraiton and secrets file to GitHub.
     ```
     # add the file to the git repo
@@ -38,6 +41,7 @@ In the root of the code repository is a file _.drone.yml_ that provides the inst
     # push changes to GitHub
     git push
     ```
+
 5. Now check the Drone web interface, and a new build should have kicked off.  And watch for the Spark message to come through in the client.
 
     ![Drone Build](images/drone_2nd_build.png)

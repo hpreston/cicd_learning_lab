@@ -21,11 +21,13 @@ In the root of the code repository is a file _.drone.yml_ that provides the inst
         password: $$DOCKER_PASSWORD
         email: $$DOCKER_EMAIL
     ```
+
 2. As part of the security of drone, every chance to the _.drone.yml_ file requires the secrets file to be recreated.  Sense we've updated this file, we need to resecure our secrets.
     ```
     # Replace USERNAME with your GitHub username
     drone secure --repo USERNAME/cicd_demoapp --in drone_secrets.yml
     ```
+
 3. Now commit and push the changes to the drone configuraiton and secrets file to GitHub.
     ```
     # add the file to the git repo
@@ -38,6 +40,7 @@ In the root of the code repository is a file _.drone.yml_ that provides the inst
     # push changes to GitHub
     git push
     ```
+
 4. Now check the Drone web interface, and a new build should have kicked off.  And watch for the Spark message to come through in the client.
 
     ![Drone Build](images/drone_3rd_build.png)
