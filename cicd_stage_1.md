@@ -59,3 +59,4 @@ Okay, so drone said it did something and we got a Spark message... what actually
 3. Drone checks the _.drone.yml_ file and executes the commands in teh _build_ phase.
   * As part of this phase, drone fetches a container, identified in the `image: python:2` line of the config, from hub.docker.com.  It will run the commands and tests described in this phase from this container.
   * Send a message to Spark
+
