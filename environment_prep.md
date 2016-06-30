@@ -76,6 +76,7 @@ Drone provides a method to create an encrypted file with needed secrets that can
     ```
     cp drone_secrets_sample.yml drone_secrets.yml
     ```
+
 5. Edit the copied file in whatever IDE or editor you prefer.  You'll need to provide the details on each line of the file.  This is a YML format, so be sure to maintain proper spacing, including a single space after the colon in each line.
     ```
     environment:
