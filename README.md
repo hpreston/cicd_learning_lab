@@ -54,5 +54,5 @@ Here are links to each part of the lab.  They do build on each other so be sure 
 3. [Stage 2 - Continuous Delivery](cicd_stage_2.md)
 4. [Manually Deploy the Application](manual_app_deploy.md)
 5. [Stage 3 - Continuous Deployment](cicd_stage_3.md)
-6. [Stage 4 - Monitoring Build Status](monitor_build.md)
+6. [Stage 4 - Monitoring and Notify Phase](notify_phase.md)
 

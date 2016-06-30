@@ -1,6 +1,6 @@
-## CICD Stage 3: Continuous Deployment
+## Monitor and Notify Phase
 
-In this step, we will automatically deploy our changes by issuing a restart command that will pull down the new docker container.
+In this step, we will configure the job to send a notification to the Spark room indicating whether the build was successful or failed.
 
 ## Update the .drone.yml configuration
 
@@ -33,6 +33,30 @@ In the root of the code repository is a file _.drone.yml_ that provides the inst
           password: $$MANTL_PASSWORD
         urls:
           - https://$$MANTL_CONTROL/marathon/v2/apps/class/$$DOCKER_USERNAME/restart?force=true
+
+    notify:
+      webhook:
+        debug: true
+        image: plugins/drone-webhook
+        when:
+          success: true
+          failure: true
+        method: POST
+        header:
+          Content-type: application/json; charset=utf-8
+          Authorization: Bearer $$SPARK_TOKEN
+        urls:
+          - https://api.ciscospark.com/v1/messages
+        template: |
+          {
+            "roomId": "$$SPARK_ROOM",
+            {{#success build.status}}
+            "text": "Drone confirms {{repo.full_name}} build {{build.number}} completed successfully.\nhttp://github.com/{{repo.full_name}}/commit/{{build.commit}}."
+            {{else}}
+            "text": "Drone blames {{build.author}} for breaking build {{build.number}}.\nhttp://github.com/{{repo.full_name}}/commit/{{build.commit}}."
+            {{/success}}
+          }
+
     ```
 
 2. As part of the security of drone, every chance to the _.drone.yml_ file requires the secrets file to be recreated.  Sense we've updated this file, we need to resecure our secrets.
@@ -48,7 +72,7 @@ In the root of the code repository is a file _.drone.yml_ that provides the inst
     git add .drone.yml
 
     # commit the change
-    git commit -m "Added Deploy Phase to Drone Config"
+    git commit -m "Added Notify Phase to Drone Config"
 
     # push changes to GitHub
     git push
@@ -56,19 +80,19 @@ In the root of the code repository is a file _.drone.yml_ that provides the inst
 
 4. Now check the Drone web interface, and a new build should have kicked off.  And watch for the Spark message to come through in the client.
 
-    ![Drone Build](images/drone_4th_build.png)
+    ![Drone Build](images/drone_5th_build.png)
 
 5. If the build reports a **Failure**, or the Spark message never comes, check the log to see what might have gone wrong.  Common reasons include forgetting to re-create the secrets file, forgetting to commit the secrets file after recreating, or mis-entered credentials in the plain text secrets file.
-6. While the build is running, open Marathon from the Lab Mantl installation, and watch your application.  When Drone gets to the deploy phase, you should see a new task get created as the application restarts.
+6. At the end of the build check the Spark Room.  You should see the build start notifications from each phase and change, but now you should also see a completed notification.
 
-    ![Marathon Deploy](images/marathon_restart.png)
+    ![Spark Notification](images/spark_notify1.png)
 
 
 ## Current Build Pipeline Status
 
 Okay, so drone said it did something and we got a Spark message... what actually happened.  This image and walkthrough shows the steps that are occuring along the way.
 
-![Stage 3 Diagram](images/stage_3_diagram.png)
+![Final Diagram](images/stage_final_diagram.png)
 
 1. You committed and pushed code to GitHub.com
 2. GitHub sent a WebHook to the drone server notifying it of the commit.
@@ -81,3 +105,6 @@ Okay, so drone said it did something and we got a Spark message... what actually
 5. Drone checks the _.drone.yml_ file and executes the commands in the _deploy_ phase.
   * Drone sends a WebHook command to Marathon to cause an application restart
   * Marathon pulls the new container from hub.docker.com containing the code changes
+6. Drone checks the _.drone.yml_ file and executes the commands in the _notify_ phase.
+  * If the build was successful, send a Success notification
+  * If the build failed, send a Failure notificiation.
