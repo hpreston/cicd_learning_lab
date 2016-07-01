@@ -21,7 +21,7 @@ From the root of your code repository...
 
 1. Execute the installation script.
     ```
-    $ ./app_install.sh
+    ./app_install.sh
 
     # You will be prompted to enter the information needed before the applicaiton deploys.
     # The process will look like this

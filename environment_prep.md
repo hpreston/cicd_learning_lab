@@ -6,6 +6,9 @@ With all the pre-reqs completed, you are ready to start the lab.  We'll start by
 
 1. Log into GitHub and visit the demo app repo [hpreston/cicd_demoapp](https://github.com/hpreston/cicd_demoapp)
 2. Click **Fork** to create a copy of the repo in your account
+
+    ![GitHub Fork](images/github_fork.png)
+
 3. Make a local clone of YOUR repo on your laptop
     ```
     # if you don't have a local directory where you keep projects, create one
@@ -34,7 +37,7 @@ With all the pre-reqs completed, you are ready to start the lab.  We'll start by
 
 ## Activate the Repo in Drone
 
-1. Make sure the lab administrator has enabled your GitHub account on the lab server.
+1. **Make sure the lab administrator has enabled your GitHub account on the lab server.**
 2. Navigate to the drone server address provided by the lab administrator, and click **Login**.
 
     ![Drone Login](images/drone_login.png)
@@ -64,6 +67,10 @@ Drone provides a method to create an encrypted file with needed secrets that can
     ```
 
 2.  Find your personal Drone token by viewing your profile in the drone console.  Click the down arrow next to your picture in the upper right corner and navigate to _Profile_.  Click the button to _Show Token_ and copy the displayed value.
+
+    ![Drone Profile](images/drone_profile.png)
+
+3.  Execute this command to store the value in your terminal session.
     ```
     # Configure your token
     export DRONE_TOKEN=<your token>
@@ -71,7 +78,8 @@ Drone provides a method to create an encrypted file with needed secrets that can
 
 3. Test the command line tools by listing the repositories configured.  You should see your cicd_demoapp listed like below.
     ```
-    $ drone repo ls
+    drone repo ls
+
     hpreston/cicd_demoapp
     ```
 
