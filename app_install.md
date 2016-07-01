@@ -12,7 +12,7 @@ Now that we have used CICD to automate the creation of a Docker container for ou
         3. Install your application using the REST API for Marathon.
     * [app_uninstall.sh](https://github.com/hpreston/cicd_demoapp/blob/master/app_uninstall.sh) is a bash script that uninstalls the demoapp.  This has two steps.
         1. Collect environment details: Lab Mantl Address, Lab Username, Lab Password, and Your Docker Username
-        2. Destory your application using the REST API for Marathon.
+        2. Destroy your application using the REST API for Marathon.
 2. You could manually install the application using the Marathon GUI, however the GUI lacks the ability to configure certain parameters we need for the lab.  Also, deploying through APIs is so much cooler!
 
 ## Install your application
@@ -21,7 +21,7 @@ From the root of your code repository...
 
 1. Execute the installation script.
     ```
-    ./app_install.sh
+    $ ./app_install.sh
 
     # You will be prompted to enter the information needed before the applicaiton deploys.
     # The process will look like this

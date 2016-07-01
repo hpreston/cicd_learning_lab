@@ -9,6 +9,7 @@ Here are links to each part of the lab.  They do build on each other so be sure 
 5. [Stage 3 - Continuous Deployment](cicd_stage_3.md)
 6. [Stage 4 - Monitoring and Notify Phase](notify_phase.md)
 7. [Bonus - CICD In Action!](bonus.md)
+8. [Clean-Up](cleanup.md)
 
 ## Introduction
 
