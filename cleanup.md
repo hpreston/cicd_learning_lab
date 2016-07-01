@@ -1,4 +1,4 @@
-## CleanUp - UnInstall your Application
+## CleanUp - Uninstall your Application
 
 In this lab we built and put to use a full CICD pipeline for a very simple application.  Full production applicaiton pipelines are more involved with a greater amount of testing to ensure only good code is deployed, but the basic steps and process is the same.
 
