@@ -34,8 +34,7 @@ To run through this lab, you will need to have accounts (all free) created with 
 * [hub.docker.com](http://hub.docker.com)
 * [CiscoSpark.com](http://CiscoSpark.com)
   * including [developer.ciscospark.com](http://developer.ciscospark.com) token.  Find your token by logging into the developer portal, clicking your image in the upper right corner, and clicking **Copy**
-
-   ![Spark Token](images/spark_token.png)
+    ![Spark Token](images/spark_token.png)
 
 ## Laptop or Workstation
 
