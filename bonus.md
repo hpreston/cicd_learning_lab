@@ -13,6 +13,12 @@ The default demo app has a single route `hello/world`.  We will be adding an add
 
 ## Add /hello/universe to the app
 
+**_In this step you will be entering several commands in a terminal window.  These need to be run from your local repo directory.  If you followed the directions when cloning the repo locally, this command will place you in the correct directory_**
+
+```
+cd ~/coding/cicd_demoapp
+```
+
 1. In your editor or IDE, open `demoapp.py` and add the new class and resource for HelloUniverse.  You can simply copy and paste the below into your editor.
 
     ```

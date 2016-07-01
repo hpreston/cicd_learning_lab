@@ -5,6 +5,13 @@ In this step, we will take our successfully tested application, build a Docker C
 
 In the root of the code repository is a file _.drone.yml_ that provides the instructions to drone on what actions to take upon each run.  We will be updating this file at each stage of the lab to move from Continuous Integration -> Delivery -> Deployment.
 
+**_In this step you will be entering several commands in a terminal window.  These need to be run from your local repo directory.  If you followed the directions when cloning the repo locally, this command will place you in the correct directory_**
+
+```
+cd ~/coding/cicd_demoapp
+```
+
+
 1. Open the _.drone.yml_ file in your editor.  We will be adding the next phase, _publish_ to the existing configuration.  Update your drone file to look like this.
     ```
     build:
@@ -27,6 +34,12 @@ In the root of the code repository is a file _.drone.yml_ that provides the inst
     # Replace USERNAME with your GitHub username
     drone secure --repo USERNAME/cicd_demoapp --in drone_secrets.yml
     ```
+
+    1. If the command above gives the error `Error: you must provide the Drone server address.`, you likely closed the terminal window after the Environment Prep step.  Run these commands to reset the environment variables.
+        ```
+        export DRONE_SERVER=http://DRONE_SERVER
+        export DRONE_TOKEN=<your token>
+        ```
 
 3. Now commit and push the changes to the drone configuraiton and secrets file to GitHub.
     ```

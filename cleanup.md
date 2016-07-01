@@ -4,6 +4,12 @@ In this lab we built and put to use a full CICD pipeline for a very simple appli
 
 ## Uninstall your application
 
+**_In this step you will be entering several commands in a terminal window.  These need to be run from your local repo directory.  If you followed the directions when cloning the repo locally, this command will place you in the correct directory_**
+
+```
+cd ~/coding/cicd_demoapp
+```
+
 From the root of your code repository...
 
 1. Execute the uninstallation script.
