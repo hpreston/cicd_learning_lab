@@ -21,7 +21,9 @@ cd ~/coding/cicd_demoapp
         - env
     ```
 
-2. Add a new line to the file that will send an informational notice to the Spark room (identified by the roomId stored in the secrets file) that a new build has started.  This command uses curl to send an API call to Cisco Spark.  Within the command we reference the variables in the secrets file with **$$SPARK_TOKEN** reference.
+2. Add a new line to the file that will send an informational notice to the Spark room (identified by the roomId stored in the secrets file) that a new build has started.  This command uses curl to send an API call to Cisco Spark.
+    1. **NOTE: You can simply copy and paste the contents from below directly into your file.  The notation of _$$VARIABLE_ references details stored encrypted within the .drone.sec file.  Do NOT replace them with clear text credentials.**
+
     ```
     build:
       image: python:2
