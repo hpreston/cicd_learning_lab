@@ -59,6 +59,12 @@ In order for Drone to be able to do the hard work of testing your application, b
 
 Drone provides a method to create an encrypted file with needed secrets that can be safely included in a code repo.  This is why we installed the drone command line utilities as part of the pre-reqs.
 
+**_In this step you will be entering several commands in a terminal window.  These need to be run from your local repo directory.  If you followed the directions when cloning the repo locally, this command will place you in the correct directory_**
+
+```
+cd ~/coding/cicd_demoapp
+```
+
 1. The drone utilities on your laptop need to know the address and access information for the drone server you are using.  We use session environment variables for this.
     ```
     # Configure the drone server address,
@@ -123,6 +129,8 @@ Drone provides a method to create an encrypted file with needed secrets that can
 9. Return to the drone server web interface and look at your repo status.  You should see a build has kicked off.
 
     ![Drone Build](images/drone_1st_build.png)
+
+**In each of the following steps, you will be repeating the steps to secure your secrets.  If you close your terminal window, you will need to re-export the DRONE_SERVER and DRONE_TOKEN values**
 
 ## Next Step!
 
