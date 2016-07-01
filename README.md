@@ -15,7 +15,7 @@ Here are links to each part of the lab.  They do build on each other so be sure 
 
 This lab is to be an introduction to setting up a very basic CI/CD (Continuous Integration/Continuous Delivery) Pipeline.  There are many different technologies and methods that can be used for CI/CD, in this lab we will use:
 
-* Container Stack - [Mantl.io](http://mantl.io)
+* Container Stack - [Mantl.io](http://mantl.io){:target="_blank"}
   * Container Engine - [Docker](http://www.docker.com)
   * Scheduler - [Mesos/Marathon](http://mesos.apache.org)
 * Development Language - Python and Flask
