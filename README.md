@@ -40,6 +40,8 @@ To run through this lab, you will need to have accounts (all free) created with 
 
 There is no direct requirement for a particular Operating System to be used.  Windows, Mac, or Linux will all work as long as the following pieces of software are available.
 
+**_Several of the commands and scripts in the lab involve executing bash commands.  These will work as designed from a Mac or Linux Machine.  On Windows you'll need the bash tools to be installed.  In future updates, alternative commands using PowerShell will be created._**
+
 * git
   * command line tools required
   * GUI clients optional
