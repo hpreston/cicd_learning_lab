@@ -23,7 +23,7 @@ In the root of the code repository is a file _.drone.yml_ that provides the inst
         - curl https://api.ciscospark.com/v1/messages -X POST -H "Authorization:Bearer $$SPARK_TOKEN" --data "roomId=$$SPARK_ROOM" --data "text=Drone kicking off build $CI_BUILD_NUMBER"
     ```
 
-3. As part of the security of drone, every chance to the _.drone.yml_ file requires the secrets file to be recreated.  Sense we've updated this file, we need to resecure our secrets.
+3. As part of the security of drone, every change to the _.drone.yml_ file requires the secrets file to be recreated.  Since we've updated this file, we need to resecure our secrets.
     ```
     # Replace USERNAME with your GitHub username
     drone secure --repo USERNAME/cicd_demoapp --in drone_secrets.yml

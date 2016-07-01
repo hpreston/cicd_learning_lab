@@ -9,7 +9,7 @@ With all the pre-reqs completed, you are ready to start the lab.  We'll start by
 
     ![GitHub Fork](images/github_fork.png)
 
-3. Make a local clone of YOUR repo on your laptop
+3. Make a local clone of **YOUR** repo on your laptop.  Do NOT clone the `hpreston/cicd_demoapp` repo.
     ```
     # if you don't have a local directory where you keep projects, create one
     mkdir ~/coding
