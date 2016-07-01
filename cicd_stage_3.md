@@ -81,3 +81,11 @@ Okay, so drone said it did something and we got a Spark message... what actually
 5. Drone checks the _.drone.yml_ file and executes the commands in the _deploy_ phase.
   * Drone sends a WebHook command to Marathon to cause an application restart
   * Marathon pulls the new container from hub.docker.com containing the code changes
+
+## Next Step!
+
+Time to move onto the next step.
+
+[Stage 4 - Monitoring and Notify Phase](notify_phase.md)
+
+

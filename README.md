@@ -1,5 +1,17 @@
 # CICD Learning Lab
 
+Here are links to each part of the lab.  They do build on each other so be sure to go in order.
+
+1. [Environment Prep](environment_prep.md)
+2. [Stage 1 - Continuous Integration](cicd_stage_1.md)
+3. [Stage 2 - Continuous Delivery](cicd_stage_2.md)
+4. [Install the Application](app_install.md)
+5. [Stage 3 - Continuous Deployment](cicd_stage_3.md)
+6. [Stage 4 - Monitoring and Notify Phase](notify_phase.md)
+7. [Bonus - CICD In Action!](bonus.md)
+
+## Introduction
+
 This lab is to be an introduction to setting up a very basic CI/CD (Continuous Integration/Continuous Delivery) Pipeline.  There are many different technologies and methods that can be used for CI/CD, in this lab we will use:
 
 * Container Stack - Mantl.io
@@ -45,14 +57,8 @@ There is no direct requirement for a particular Operating System to be used.  Wi
       * `curl http://downloads.drone.io/drone-cli/drone_darwin_amd64.tar.gz | tar zx`
       * `sudo cp drone /usr/local/bin`
 
-## Getting Started
+## Next Step!
 
-Here are links to each part of the lab.  They do build on each other so be sure to go in order.
+Now that you've got all the pre-reqs setup, move onto the next step.
 
 1. [Environment Prep](environment_prep.md)
-2. [Stage 1 - Continuous Integration](cicd_stage_1.md)
-3. [Stage 2 - Continuous Delivery](cicd_stage_2.md)
-4. [Manually Deploy the Application](manual_app_deploy.md)
-5. [Stage 3 - Continuous Deployment](cicd_stage_3.md)
-6. [Stage 4 - Monitoring and Notify Phase](notify_phase.md)
-

@@ -64,3 +64,9 @@ Okay, so drone said it did something and we got a Spark message... what actually
   * As part of this phase, drone fetches a container, identified in the `image: python:2` line of the config, from hub.docker.com.  It will run the commands and tests described in this phase from this container.
   * Send a message to Spark
 
+## Next Step!
+
+Time to move onto the next step.
+
+[Stage 2 - Continuous Delivery](cicd_stage_2.md)
+

@@ -64,3 +64,12 @@ Okay, so drone said it did something and we got a Spark message... what actually
 4. Drone checks the _.drone.yml_ file and executes the commands in the _publish_ phase.
   * Build a Docker Container using the Dockerfile within the repo
   * Push the container up to hub.docker.com using the credentials in the secrets file
+
+## Next Step!
+
+Time to move onto the next step.
+
+[Install the Application](app_install.md)
+
+
+

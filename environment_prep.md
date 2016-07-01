@@ -116,6 +116,9 @@ Drone provides a method to create an encrypted file with needed secrets that can
 
     ![Drone Build](images/drone_1st_build.png)
 
-# Prep Complete
+## Next Step!
 
-We now have prepped our application code repository, docker registry and cicd server.  Continue to CICD Stage 1 to begin building the deployment pipeline.
+Now that you have prepped your application code repository, docker registry and cicd server, move onto the next step.
+
+[Stage 1 - Continuous Integration](cicd_stage_1.md)
+

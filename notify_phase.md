@@ -108,3 +108,10 @@ Okay, so drone said it did something and we got a Spark message... what actually
 6. Drone checks the _.drone.yml_ file and executes the commands in the _notify_ phase.
   * If the build was successful, send a Success notification
   * If the build failed, send a Failure notificiation.
+
+## Bonus Step!
+
+You now have a full CICD pipeline setup, but we haven't actualy made any updates to the application.  Move onto the next step to become a DevOps enabled developer and make an application change and watch it go to production!
+
+[Bonus - CICD In Action!](bonus.md)
+
