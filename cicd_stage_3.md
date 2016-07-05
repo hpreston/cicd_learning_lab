@@ -40,7 +40,7 @@ cd ~/coding/cicd_demoapp
           username: $$MANTL_USERNAME
           password: $$MANTL_PASSWORD
         urls:
-          - https://$$MANTL_CONTROL/marathon/v2/apps/class/$$DOCKER_USERNAME/restart?force=true
+          - $$MANTL_CONTROL/marathon/v2/apps/class/$$DOCKER_USERNAME/restart?force=true
     ```
 
 2. As part of the security of drone, every chance to the _.drone.yml_ file requires the secrets file to be recreated.  Sense we've updated this file, we need to resecure our secrets.
