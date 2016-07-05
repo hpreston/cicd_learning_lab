@@ -89,19 +89,19 @@ Okay, so let's review the steps in the full pipeline.
 ![Final Diagram](images/stage_final_diagram.png)
 
 1. You committed and pushed code to GitHub.com
-2. GitHub sent a WebHook to the drone server notifying it of the commit.
-3. Drone checks the _.drone.yml_ file and executes the commands in teh _build_ phase.
-  * As part of this phase, drone fetches a container, identified in the `image: python:2` line of the config, from hub.docker.com.  It will run the commands and tests described in this phase from this container.
-  * Send a message to Spark
-4. Drone checks the _.drone.yml_ file and executes the commands in the _publish_ phase.
-  * Build a Docker Container using the Dockerfile within the repo
-  * Push the container up to hub.docker.com using the credentials in the secrets file
-5. Drone checks the _.drone.yml_ file and executes the commands in the _deploy_ phase.
+2. GitHub sent a WebHook to the Drone server notifying it of the committed code.
+3. Drone checks the _.drone.yml_ file and executes the commands in the _build_ phase. During this phase, Drone will: 
+  * Fetch a container from hub.docker.com.  This container is identified in the `image: python:2` line of the drone config file.  Drone will run the commands and tests described in this phase from the fetched container
+  * Send a notification message to the subscribed Spark room stating that the build has begun. 
+4. Drone checks the _.drone.yml_ file and executes the commands in the _publish_ phase. During this phase, Drone will: 
+  * Build a Docker Container using the Dockerfile definition included in the Git repo
+  * Push the container up to hub.docker.com using the credentials contained in the secrets file
+5. Drone checks the _.drone.yml_ file and executes the commands in the _deploy_ phase. In this phase, the following actions will take place: 
   * Drone sends a WebHook command to Marathon to cause an application restart
   * Marathon pulls the new container from hub.docker.com containing the code changes
-6. Drone checks the _.drone.yml_ file and executes the commands in the _notify_ phase.
+6. Drone checks the _.drone.yml_ file and executes the commands in the _notify_ phase. During notification, Drone will check the staus of the build and then send notifications to the Spark room.
   * If the build was successful, send a Success notification
-  * If the build failed, send a Failure notificiation.
+  * If the build failed, send a Failure notificiation and blame someone.
 
 ## Next Step!
 

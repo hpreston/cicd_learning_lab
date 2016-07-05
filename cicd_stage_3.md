@@ -1,6 +1,6 @@
 ## CICD Stage 3: Continuous Deployment
 
-In this step, we will automatically deploy our changes by issuing a restart command that will pull down the new docker container.
+In this step, we will automatically deploy our changes by issuing a restart command to Marathon that will pull down the new docker container.
 
 ## Update the .drone.yml configuration
 
@@ -43,7 +43,7 @@ cd ~/coding/cicd_demoapp
           - https://$$MANTL_CONTROL/marathon/v2/apps/class/$$DOCKER_USERNAME/restart?force=true
     ```
 
-2. As part of the security of drone, every chance to the _.drone.yml_ file requires the secrets file to be recreated.  Sense we've updated this file, we need to resecure our secrets.
+2. As part of the security of drone, every change to the _.drone.yml_ file requires the secrets file to be recreated.  Since we've updated this file, we need to re-secure our secrets file.
     ```
     # Replace USERNAME with your GitHub username
     drone secure --repo USERNAME/cicd_demoapp --in drone_secrets.yml
@@ -57,6 +57,7 @@ cd ~/coding/cicd_demoapp
         ```
 
 3. Now commit and push the changes to the drone configuraiton and secrets file to GitHub.
+** Remember: IDE can oops you. 
     ```
     # add the file to the git repo
     git add .drone.sec
@@ -69,7 +70,7 @@ cd ~/coding/cicd_demoapp
     git push
     ```
 
-4. Now check the Drone web interface, and a new build should have kicked off.  And watch for the Spark message to come through in the client.
+4. Now check the Drone web interface. A new build should have kicked off.  Also, watch for the Spark message to come through in the client. 
 
     ![Drone Build](images/drone_4th_build.png)
 
@@ -81,19 +82,19 @@ cd ~/coding/cicd_demoapp
 
 ## Current Build Pipeline Status
 
-Okay, so drone said it did something and we got a Spark message... what actually happened.  This image and walkthrough shows the steps that are occuring along the way.
+Okay, so drone said it did something and we got a Spark message... but you may be wondering what actually happened.  This image and walkthrough shows the steps that are occuring along the way.
 
 ![Stage 3 Diagram](images/stage_3_diagram.png)
 
 1. You committed and pushed code to GitHub.com
-2. GitHub sent a WebHook to the drone server notifying it of the commit.
-3. Drone checks the _.drone.yml_ file and executes the commands in teh _build_ phase.
-  * As part of this phase, drone fetches a container, identified in the `image: python:2` line of the config, from hub.docker.com.  It will run the commands and tests described in this phase from this container.
-  * Send a message to Spark
-4. Drone checks the _.drone.yml_ file and executes the commands in the _publish_ phase.
-  * Build a Docker Container using the Dockerfile within the repo
-  * Push the container up to hub.docker.com using the credentials in the secrets file
-5. Drone checks the _.drone.yml_ file and executes the commands in the _deploy_ phase.
+2. GitHub sent a WebHook to the Drone server notifying it of the committed code.
+3. Drone checks the _.drone.yml_ file and executes the commands in the _build_ phase. During this phase, Drone will: 
+  * Fetch a container from hub.docker.com.  This container is identified in the `image: python:2` line of the drone config file.  Drone will run the commands and tests described in this phase from the fetched container
+  * Send a notification message to the subscribed Spark room stating that the build has begun. 
+4. Drone checks the _.drone.yml_ file and executes the commands in the _publish_ phase. During this phase, Drone will: 
+  * Build a Docker Container using the Dockerfile definition included in the Git repo
+  * Push the container up to hub.docker.com using the credentials contained in the secrets file
+5. Drone checks the _.drone.yml_ file and executes the commands in the _deploy_ phase. In this phase, the following actions will take place: 
   * Drone sends a WebHook command to Marathon to cause an application restart
   * Marathon pulls the new container from hub.docker.com containing the code changes
 

@@ -9,7 +9,7 @@ With all the pre-reqs completed, you are ready to start the lab.  We'll start by
 
     ![GitHub Fork](images/github_fork.png)
 
-3. Make a local clone of **YOUR** repo on your laptop.  Do NOT clone the `hpreston/cicd_demoapp` repo.
+3. Make a local clone of **YOUR** repo on your laptop.  Do NOT clone the `hpreston/cicd_demoapp` repo. In this case, we will create a directory called "coding". If you choose to deviate from that directory name, just remember what directory you created for your local repo, as this will be used multiple times through the lab. 
     ```
     # if you don't have a local directory where you keep projects, create one
     mkdir ~/coding
@@ -51,7 +51,7 @@ With all the pre-reqs completed, you are ready to start the lab.  We'll start by
 
     ![Drone Repos](images/drone_active_repos.png)
 
-6. On the **Active Repositories** tab, you should now see the cicd_demoapp.  If you click on it, there should be no builds reported yet.
+6. On the **Active Repositories** tab, you should now see a new entry for the cicd_demoapp.  If you click on it, there should be no builds reported yet.
 
 ## Application and Build Secrets File
 
@@ -65,7 +65,7 @@ Drone provides a method to create an encrypted file with needed secrets that can
 cd ~/coding/cicd_demoapp
 ```
 
-1. The drone utilities on your laptop need to know the address and access information for the drone server you are using.  We use session environment variables for this.
+1. The drone utilities on your laptop need to know the address and access information for the drone server you are using.  We use session environment variables for this. You will replace the variable's value with the information the lab admin gives you. The follow code can be copied and pasted directly into a terminal window if you'd like to do that, but you can also just type in the line that doesn't start with the hash mark.
     ```
     # Configure the drone server address,
     # Use the address provided by the lab administrator
@@ -76,20 +76,20 @@ cd ~/coding/cicd_demoapp
 
     ![Drone Profile](images/drone_profile.png)
 
-3.  Execute this command to store the value in your terminal session.
+3.  Copy/Paste or execute this command to store the value in your terminal session.
     ```
     # Configure your token
     export DRONE_TOKEN=<your token>
     ```
 
-3. Test the command line tools by listing the repositories configured.  You should see your cicd_demoapp listed like below.
+3. Test the command line tools by listing the repositories configured.  You should see your cicd_demoapp listed like below. If you don't see something similar, please let the lab admin know.
     ```
     drone repo ls
 
-    hpreston/cicd_demoapp
+    <yourusername>/cicd_demoapp
     ```
 
-4. Next we will create the clear text version of our secrets file.  This file is only used to build the encrypted version and should **NEVER** be added to or commited to your repo.  A sample template for the secrets file was included in the demo app.  We will copy this file and edit it.
+4. Next we will create the clear text version of our secrets file.  This file is only used to build the encrypted version and should **NEVER** be added to or commited to your repo.  A sample template for the secrets file was included in the demo app.  We will copy this file and edit it to put in the values that we will use for the lab exercises.
     ```
     cp drone_secrets_sample.yml drone_secrets.yml
     ```
@@ -114,7 +114,8 @@ cd ~/coding/cicd_demoapp
     drone secure --repo USERNAME/cicd_demoapp --in drone_secrets.yml
     ```
 
-8. Add this file to git, commit and push it to GitHub.  When you `git push` you may be prompted for your GitHub credentials, provide them.
+8. Add this file to git, commit and push it to GitHub.  When you `git push` you may be prompted for your GitHub credentials, provide them. The code below will commit and push ONLY the encrypted file, not the clear text file. 
+** Note: if you are using a graphical IDE and choose to use that for your commit/push actions, it's very easy to _accidentally_ save and commit all changed files in a directory, therefore _accidentally_ pushing your clear text secrets YML file. Be conscious of what you commit and push.  
     ```
     # add the file to the git repo
     git add .drone.sec
