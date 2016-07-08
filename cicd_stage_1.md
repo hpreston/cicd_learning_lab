@@ -1,10 +1,10 @@
 # CICD Stage 1: Continuous Integration
 
-The first step of the CICD process is to react to new code commits and test the changes against the larger application needs.  In this lab, we will configure drone to send an alert to our Spark room each time a commit has been made.
+The first step of the CICD process is to react to new code commits and test the changes against the larger application needs.  In this lab, we will configure drone to send an alert to a Spark room each time a commit has been made.
 
 ## Update the .drone.yml configuration
 
-In the root of the code repository is a file _.drone.yml_ that provides the instructions to drone on what actions to take upon each run.  We will be updating this file at each stage of the lab to move from Continuous Integration -> Delivery -> Deployment.
+In the root of the code repository is a file named _.drone.yml_ that provides the instructions to Drone on what actions to take upon each run.  We will be updating this file at each stage of the lab to move from Continuous Integration -> Delivery -> Deployment.
 
 **_In this step you will be entering several commands in a terminal window.  These need to be run from your local repo directory.  If you followed the directions when cloning the repo locally, this command will place you in the correct directory_**
 
@@ -13,7 +13,7 @@ cd ~/coding/cicd_demoapp
 ```
 
 
-1. Open the _.drone.yml_ file in your editor.  The file should start looking like this.  The _build_ directive at the top represents where the integration phase of the process will take place.  In the _commands:_ list are the different steps needed to validate a successful code change.  Currently nothing is being done, _env_ is simply a placeholder command to display all current environment variables in the build container.
+1. Open the _.drone.yml_ file in your editor.  The file should begin looking like the code block below.  The _build_ directive at the top represents where the integration phase of the process will take place.  In the _commands:_ list are the different steps needed to validate a successful code change.  Currently nothing is being done, _env_ is simply a placeholder command to display all current environment variables in the build container.
     ```
     build:
       image: python:2
@@ -21,8 +21,8 @@ cd ~/coding/cicd_demoapp
         - env
     ```
 
-2. Add a new line to the file that will send an informational notice to the Spark room (identified by the roomId stored in the secrets file) that a new build has started.  This command uses curl to send an API call to Cisco Spark.
-    1. **NOTE: You can simply copy and paste the contents from below directly into your file.  The notation of _$$VARIABLE_ references details stored encrypted within the .drone.sec file.  Do NOT replace them with clear text credentials.**
+2. Add a new line to the file that will send an informational notice to the Spark room (identified by the roomId stored in the secrets file as SPARK_ROOM) that a new build has started.  This command uses curl to send an API call to Cisco Spark.
+    1. **NOTE: You can simply copy and paste the contents from below directly into your file.  The notation of _$$VARIABLE_ references details stored within the encryped .drone.sec file.  Do NOT replace them with clear text credentials or you will be flogged.**
 
     ```
     build:
@@ -32,7 +32,7 @@ cd ~/coding/cicd_demoapp
         - curl https://api.ciscospark.com/v1/messages -X POST -H "Authorization:Bearer $$SPARK_TOKEN" --data "roomId=$$SPARK_ROOM" --data "text=Drone kicking off build $CI_BUILD_NUMBER"
     ```
 
-3. As part of the security of drone, every change to the _.drone.yml_ file requires the secrets file to be recreated.  Since we've updated this file, we need to resecure our secrets.
+3. As part of the security of drone, every change to the _.drone.yml_ file requires the secrets file to be recreated.  Since we've updated this file, we need to re-secure our secrets file.
     ```
     # Replace USERNAME with your GitHub username
     drone secure --repo USERNAME/cicd_demoapp --in drone_secrets.yml
@@ -46,6 +46,7 @@ cd ~/coding/cicd_demoapp
         ```
 
 4. Now commit and push the changes to the drone configuraiton and secrets file to GitHub.
+** Remember if you are using an IDE, be careful not to commit & push the changes to the file drone_secrets.yml
     ```
     # add the file to the git repo
     git add .drone.sec
@@ -58,11 +59,11 @@ cd ~/coding/cicd_demoapp
     git push
     ```
 
-5. Now check the Drone web interface, and a new build should have kicked off.  And watch for the Spark message to come through in the client.
+5. Now check the Drone web interface. A new build should have kicked off.  Also, watch for the Spark message to come through in the client. If you don't see it, check to see if notifications are turned on in Spark.
 
     ![Drone Build](images/drone_2nd_build.png)
 
-6. Click on the build and scroll through the log displayed.  You can use this log to monitor the process in each stage as we add additional steps to the build process.
+6. Click on the build and scroll through the log displayed.  You can use this log to monitor the process in each stage as we add additional steps to the build process. The Drone log window also has an arrow at the bottom right that you can click and it will automatically tail the end of the log file as it progresses. 
 
     ![Drone Build](images/drone_2nd_build_details.png)
 
@@ -70,15 +71,16 @@ cd ~/coding/cicd_demoapp
 
 ## Current Build Pipeline Status
 
-Okay, so drone said it did something and we got a Spark message... what actually happened.  This image and walkthrough shows the steps that are occuring along the way.
+Okay, so drone said it did something and we got a Spark message... but you may be wondering what actually happened.  This image and walkthrough shows the steps that are occuring along the way.
 
 ![Stage 1 Diagram](images/stage_1_diagram.png)
 
 1. You committed and pushed code to GitHub.com
-2. GitHub sent a WebHook to the drone server notifying it of the commit.
-3. Drone checks the _.drone.yml_ file and executes the commands in teh _build_ phase.
-  * As part of this phase, drone fetches a container, identified in the `image: python:2` line of the config, from hub.docker.com.  It will run the commands and tests described in this phase from this container.
-  * Send a message to Spark
+2. GitHub sent a WebHook to the Drone server notifying it of the committed code.
+3. Drone checks the _.drone.yml_ file and executes the commands in the _build_ phase. During this phase, Drone will: 
+  * Fetch a container from hub.docker.com.  This container is identified in the `image: python:2` line of the drone config file.  Drone will run the commands and tests described in this phase from the fetched container
+  * Send a notification message to the subscribed Spark room stating that the build has begun. 
+
 
 ## Next Step!
 

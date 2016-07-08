@@ -1,19 +1,19 @@
 ## Install your application
 
-Now that we have used CICD to automate the creation of a Docker container for our application, we can now deploy our application.  This step could certainly be automated as well, but in this lab we will manually install our application and rely on automation to keep it up to date.
+Now that we have used CICD to automate the creation of a Docker container for our application, we can now deploy our application.  This step could certainly be automated as well, but in this lab we will manually install our application to illustrate the process and rely on automation to keep it up to date.
 
 ## Investigate the installation process
 
 1. Included in your repository are three files that are used to define, install, and uninstall the application.
     * [sample-demoapp.json](https://github.com/hpreston/cicd_demoapp/blob/master/sample-demoapp.json) is a template for the Marathon Application definition that will be used.  A custom version will be created at installation that references **YOUR** Docker container.
-    * [app_install.sh](https://github.com/hpreston/cicd_demoapp/blob/master/app_install.sh) is a bash script that installs the demoapp.  This has three steps.
+    * [app_install.sh](https://github.com/hpreston/cicd_demoapp/blob/master/app_install.sh) is a bash script that installs the demo application.  This has three steps.
         1. Collect environment details: Lab Mantl Address, Lab Username, Lab Password, Your Docker Username, and the Lab Application Domain
         2. Create an application definition for your deployment
         3. Install your application using the REST API for Marathon.
     * [app_uninstall.sh](https://github.com/hpreston/cicd_demoapp/blob/master/app_uninstall.sh) is a bash script that uninstalls the demoapp.  This has two steps.
         1. Collect environment details: Lab Mantl Address, Lab Username, Lab Password, and Your Docker Username
         2. Destroy your application using the REST API for Marathon.
-2. You could manually install the application using the Marathon GUI, however the GUI lacks the ability to configure certain parameters we need for the lab.  Also, deploying through APIs is so much cooler!
+2. You could manually install the application using the Marathon GUI, however the GUI lacks the ability to configure certain parameters we need for the lab.  Besides... deploying through APIs is so much cooler!
 
 ## Install your application
 
@@ -25,7 +25,7 @@ cd ~/coding/cicd_demoapp
 
 From the root of your code repository...
 
-1. Execute the installation script.
+1. Execute the installation script. Remember to check the information the lab administrator has provided for the correct responses to the script prompts. Be sure to pay attention to the last few lines of the script output, as these will give you the URLs for your application (you'll need this to test the app) and the control interface for Marathon. 
     ```
     ./app_install.sh
 
@@ -140,14 +140,13 @@ From the root of your code repository...
     https://control.mantl.domain.com/marathon
     ```
 
-2. The application is now being deployed, and you can watch the progress from the lab console address (provided by the lab admin).
+2. The application is now being deployed, and you can watch the progress from the lab console address (provided by the lab admin as well as at the end of the script output).
 
     ![Marathon App Install](images/marathon_app_install.png)
 
-3. Once the application is fully deployed (shouldn't take more than 3 minutes), and show's healthy in the console, you can visit your applicaiton at the URL that was provided at the end of installation.
+3. Once the application is fully deployed (shouldn't take more than 3 minutes), and shows healthy status in the console, you can visit your applicaiton at the URL that was provided at the end of installation script.
 
     ![App Hello World](images/app_hello_world.png)
-
 
 ## Current Build Pipeline Status
 
@@ -156,15 +155,15 @@ Okay, so building on the process from the previous step, this diagram shows what
 ![Manual Install Diagram](images/manual_install_diagram.png)
 
 1. You committed and pushed code to GitHub.com
-2. GitHub sent a WebHook to the drone server notifying it of the commit.
-3. Drone checks the _.drone.yml_ file and executes the commands in teh _build_ phase.
-  * As part of this phase, drone fetches a container, identified in the `image: python:2` line of the config, from hub.docker.com.  It will run the commands and tests described in this phase from this container.
-  * Send a message to Spark
-4. Drone checks the _.drone.yml_ file and executes the commands in the _publish_ phase.
-  * Build a Docker Container using the Dockerfile within the repo
-  * Push the container up to hub.docker.com using the credentials in the secrets file
-5. With the new container available in Docker Hub, you manually installed the application to Marathon.
-  * Marathon pulled the container directly from Docker Hub.
+2. GitHub sent a WebHook to the Drone server notifying it of the committed code.
+3. Drone checks the _.drone.yml_ file and executes the commands in the _build_ phase. During this phase, Drone will: 
+  * Fetch a container from hub.docker.com.  This container is identified in the `image: python:2` line of the drone config file.  Drone will run the commands and tests described in this phase from the fetched container
+  * Send a notification message to the subscribed Spark room stating that the build has begun. 
+4. Drone checks the _.drone.yml_ file and executes the commands in the _publish_ phase. During this phase, Drone will: 
+  * Build a Docker Container using the Dockerfile definition included in the Git repo
+  * Push the container up to hub.docker.com using the credentials contained in the secrets file
+5. Drone checks the _.drone.yml_ file and executes the commands in the _deploy_ phase. In this phase, the following action will take place: 
+  * Marathon pulls the new container from hub.docker.com containing the code changes
 
 ## Next Step!
 
