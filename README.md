@@ -39,9 +39,17 @@ To run through this lab, you will need to have accounts (all free) created with 
 
 ## Laptop or Workstation
 
-There is no direct requirement for a particular Operating System to be used.  Windows, Mac, or Linux should all work as long as the following software is available.
+To successfully complete this lab, you must have a supported working environment (i.e. laptop/workstation).  There are two options for meeting this requirement:
 
-**_Note: Several of the commands and scripts in the lab involve executing bash commands.  These will work natively on a Mac or Linux machine.  On Windows you'll need to have bash tools installed.  In future updates, alternative commands using PowerShell may be added._**
+1. Natively use your own workstation by installing and configuring the below list of software and utilities.
+2. Run the lab within the provided Docker container to avoid the need to install additional software on your workstation.
+   * **_For this option, you will need to have the ability to run a Docker container on your workstation.  Options for this include native Docker installation, boot2docker, or docker-machine options._**
+
+_Though Windows Operation Systems are becoming more common with developers, and many development tools and utilities are being made available natively for Windows users, the exercises in this lab are **NOT** supported on Windows Natively.  If you are working from a Windows machine, please use the provided Docker Container option._
+
+### Option 1: Leverage your Native Workstation
+
+If you will be completing the lab using your native workstation, you will need to ensure the following components are installed and functioning correctly.
 
 * git
   * command line tools required
@@ -66,6 +74,48 @@ There is no direct requirement for a particular Operating System to be used.  Wi
     * Mac
       * `curl http://downloads.drone.io/drone-cli/drone_darwin_amd64.tar.gz | tar zx`
       * `sudo cp drone /usr/local/bin`
+
+### Option 2: Run the Lab within a Container
+
+If your workstation is Windows based, or you prefer to NOT use your native workstation, you can run the lab exercises from within a Docker container.  _To use this method, you will need to be able to run a Docker container on a host machine somewhere._
+
+From your Docker host, run the following command to pull down and enter an interactive shell on the provided development container.
+
+```
+# It may take some time to complete this command while the full container is downloaded
+docker run -it --name cicdlab hpreston/devbox:cicdlab
+
+[root@cf95a414877e coding]#
+
+```
+
+This will put you at a prompt similar to the above.  The container is a Linux based working environment with the following utilities and software installed and ready to use.
+
+* vim
+* git
+* docker
+  * the container has the docker tools installed, but the `docker run` command above will **NOT** enable you to run additional containers from inside
+  * running containers is not a required step in the lab, but if you would like to do so, you can use the following command instead
+    ```
+    docker run -it -v /var/run/docker.sock:/var/run/docker.sock hpreston/devbox:cicdlab
+    ```
+  * this command will link the docker daemon on the host machine into the container
+* drone cli tools
+
+If you exit out of the container before completing the lab and want to continue from where you left off, do not execute a `docker run` command again.  This will create a new clean container that lacks any of your work.  Instead follow the below to start the original container .
+
+```
+# Verify that you have  a container in a stopped state
+docker ps -a
+
+CONTAINER ID        IMAGE                         COMMAND             CREATED             STATUS                        PORTS               NAMES
+cf95a414877e        hpreston/devbox:cicdlab   "/bin/bash"         2 minutes ago       Exited (0) 10 seconds ago                         cicdlab
+
+# Restart your stopped container
+docker start -i cicdlab
+
+[root@cf95a414877e coding]#
+```
 
 ## Lab Environment Details
 

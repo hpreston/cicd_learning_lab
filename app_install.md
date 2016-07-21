@@ -1,3 +1,26 @@
+**_Before beginning this step, be sure to be at a command line prompt from your prepared working environment.  This will either be your local machine, or within the provided container._**
+
+#### Reminder: Working in the docker container
+
+```
+# Start a clean instance of the container
+docker run -it --name cicdlab hpreston/devbox:cicdlab
+
+[root@cf95a414877e coding]# exit
+
+# If you need to restart an exited container
+# Verify that you have  a container in a stopped state
+docker ps -a
+
+CONTAINER ID        IMAGE                         COMMAND             CREATED             STATUS                        PORTS               NAMES
+cf95a414877e        hpreston/devbox:cicdlab       "/bin/bash"         2 minutes ago       Exited (0) 10 seconds ago                         cicdlab
+
+# Restart your stopped container
+docker start -i cicdlab
+
+[root@cf95a414877e coding]#
+```
+
 ## Install your application
 
 Now that we have used CICD to automate the creation of a Docker container for our application, we can now deploy our application.  This step could certainly be automated as well, but in this lab we will manually install our application to illustrate the process and rely on automation to keep it up to date.

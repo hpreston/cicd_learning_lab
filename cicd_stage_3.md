@@ -1,3 +1,26 @@
+**_Before beginning this step, be sure to be at a command line prompt from your prepared working environment.  This will either be your local machine, or within the provided container._**
+
+#### Reminder: Working in the docker container
+
+```
+# Start a clean instance of the container
+docker run -it --name cicdlab hpreston/devbox:cicdlab
+
+[root@cf95a414877e coding]# exit
+
+# If you need to restart an exited container
+# Verify that you have  a container in a stopped state
+docker ps -a
+
+CONTAINER ID        IMAGE                         COMMAND             CREATED             STATUS                        PORTS               NAMES
+cf95a414877e        hpreston/devbox:cicdlab       "/bin/bash"         2 minutes ago       Exited (0) 10 seconds ago                         cicdlab
+
+# Restart your stopped container
+docker start -i cicdlab
+
+[root@cf95a414877e coding]#
+```
+
 ## CICD Stage 3: Continuous Deployment
 
 In this step, we will automatically deploy our changes by issuing a restart command to Marathon that will pull down the new docker container.
