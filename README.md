@@ -111,7 +111,7 @@ If you exit out of the container before completing the lab and want to continue 
 docker ps -a
 
 CONTAINER ID        IMAGE                         COMMAND             CREATED             STATUS                        PORTS               NAMES
-cf95a414877e        hpreston/devbox:cicdlab   "/bin/bash"         2 minutes ago       Exited (0) 10 seconds ago                         cicdlab
+cf95a414877e        hpreston/devbox:cicdlab       "/bin/bash"         2 minutes ago       Exited (0) 10 seconds ago                         cicdlab
 
 # Restart your stopped container
 docker start -i cicdlab
