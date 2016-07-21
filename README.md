@@ -98,7 +98,7 @@ This will put you at a prompt similar to the above.  The container is a Linux ba
   * running containers is not a required step in the lab, but if you would like to do so, you can use the following command instead
 
     ```
-    docker run -it -v /var/run/docker.sock:/var/run/docker.sock hpreston/devbox:cicdlab
+    docker run -it --name cicdlab -v /var/run/docker.sock:/var/run/docker.sock hpreston/devbox:cicdlab
     ```
 
   * this command will link the docker daemon on the host machine into the container
