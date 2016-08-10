@@ -41,10 +41,15 @@ cd ~/coding/cicd_demoapp
 
     ```
     build:
-      image: python:2
-      commands:
-        - env
-        - curl https://api.ciscospark.com/v1/messages -X POST -H "Authorization:Bearer $$SPARK_TOKEN" --data "roomId=$$SPARK_ROOM" --data "text=Drone kicking off build $CI_BUILD_NUMBER"
+      build_starting:
+        image: python:2
+        commands:
+          - curl https://api.ciscospark.com/v1/messages -X POST -H "Authorization:Bearer $$SPARK_TOKEN" --data "roomId=$$SPARK_ROOM" --data "text=Drone kicking off build $CI_BUILD_NUMBER"
+      run_tests:
+        image: python:2-alpine
+        commands:
+          - pip install -r requirements.txt
+          - python testing.py
 
     publish:
       docker:

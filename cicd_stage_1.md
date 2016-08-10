@@ -36,23 +36,38 @@ cd ~/coding/cicd_demoapp
 ```
 
 
-1. Open the _.drone.yml_ file in your editor.  The file should begin looking like the code block below.  The _build_ directive at the top represents where the integration phase of the process will take place.  In the _commands:_ list are the different steps needed to validate a successful code change.  Currently nothing is being done, _env_ is simply a placeholder command to display all current environment variables in the build container.
-    ```
-    build:
-      image: python:2
-      commands:
-        - env
-    ```
+1. Open the _.drone.yml_ file in your editor.  The file should begin looking like the code block below.
+The _build_ directive at the top represents where the integration phase of the process will take place.
+In the _commands:_ list under _run_tests:_ are the different steps needed to test a successful code change.
+
+```
+build:
+  run_tests:
+    image: python:2-alpine
+    commands:
+      - pip install -r requirements.txt
+      - python testing.py
+
+
+```
+
 
 2. Add a new line to the file that will send an informational notice to the Spark room (identified by the roomId stored in the secrets file as SPARK_ROOM) that a new build has started.  This command uses curl to send an API call to Cisco Spark.
     1. **NOTE: You can simply copy and paste the contents from below directly into your file.  The notation of _$$VARIABLE_ references details stored within the encryped .drone.sec file.  Do NOT replace them with clear text credentials or you will be flogged.**
 
     ```
-    build:
-      image: python:2
-      commands:
-        - env
-        - curl https://api.ciscospark.com/v1/messages -X POST -H "Authorization:Bearer $$SPARK_TOKEN" --data "roomId=$$SPARK_ROOM" --data "text=Drone kicking off build $CI_BUILD_NUMBER"
+ build:
+  buid_starting:
+    image: python:2
+    commands:
+      - curl https://api.ciscospark.com/v1/messages -X POST -H "Authorization:Bearer $$SPARK_TOKEN" --data "roomId=$$SPARK_ROOM" --data "text=Drone kicking off build $CI_BUILD_NUMBER"
+  run_tests:
+    image: python:2-alpine
+    commands:
+      - pip install -r requirements.txt
+      - python testing.py
+
+
     ```
 
 3. As part of the security of drone, every change to the _.drone.yml_ file requires the secrets file to be recreated.  Since we've updated this file, we need to re-secure our secrets file.
