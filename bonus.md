@@ -75,6 +75,7 @@ cd ~/coding/cicd_demoapp
     ```
 2. Since we are **NOT** changing the actual build process stored in `.drone.yml`, we don't need to recreate the secrets file.  Once the build process is complete, as long as new tests or steps aren't added these files can be left alone.  Developers can focus on their code and changes, not the build process.
 3. Commit and push our updated application to begin the CICD process.
+
     ```
     # add the file to the git repo
     git add demoapp.py
@@ -113,9 +114,12 @@ Okay, so let's review the steps in the full pipeline.
 
 1. You committed and pushed code to GitHub.com
 2. GitHub sent a WebHook to the Drone server notifying it of the committed code.
-3. Drone checks the _.drone.yml_ file and executes the commands in the _build_ phase. During this phase, Drone will: 
-  * Fetch a container from hub.docker.com.  This container is identified in the `image: python:2` line of the drone config file.  Drone will run the commands and tests described in this phase from the fetched container
-  * Send a notification message to the subscribed Spark room stating that the build has begun. 
+3. Drone checks the _.drone.yml_ file and executes the commands in the _build_ phase. During this phase, Drone has two steps: 
+	* *build_starting* 	
+  		* Fetch a container from hub.docker.com to begin the build.  This container is identified in the `image: python:2` line of the drone config file.  Drone will run the commands listed in this section
+	* *run_tests*
+  		* Fetch a container from hub.docker.com to do the testing.  This container is identified in the `image: python:2-alpine` line of the drone config file.  Drone will run the tests described by the commands listed in this section
+
 4. Drone checks the _.drone.yml_ file and executes the commands in the _publish_ phase. During this phase, Drone will: 
   * Build a Docker Container using the Dockerfile definition included in the Git repo
   * Push the container up to hub.docker.com using the credentials contained in the secrets file

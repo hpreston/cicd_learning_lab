@@ -49,6 +49,7 @@ cd ~/coding/cicd_demoapp
 From the root of your code repository...
 
 1. Execute the installation script. Remember to check the information the lab administrator has provided for the correct responses to the script prompts. Be sure to pay attention to the last few lines of the script output, as these will give you the URLs for your application (you'll need this to test the app) and the control interface for Marathon. 
+
     ```
     ./app_install.sh
 
@@ -185,8 +186,8 @@ Okay, so building on the process from the previous step, this diagram shows what
 4. Drone checks the _.drone.yml_ file and executes the commands in the _publish_ phase. During this phase, Drone will: 
   * Build a Docker Container using the Dockerfile definition included in the Git repo
   * Push the container up to hub.docker.com using the credentials contained in the secrets file
-5. Drone checks the _.drone.yml_ file and executes the commands in the _deploy_ phase. In this phase, the following action will take place: 
-  * Marathon pulls the new container from hub.docker.com containing the code changes
+
+* ***You manually Install the application on Mantl***
 
 ## Next Step!
 

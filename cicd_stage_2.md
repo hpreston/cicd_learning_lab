@@ -39,27 +39,28 @@ cd ~/coding/cicd_demoapp
     1. **NOTE: You can simply copy and paste the contents from below directly into your file.  The notation of _$$VARIABLE_ references details stored encrypted within the .drone.sec file.  Do NOT replace them with clear text credentials.**
 
     ```
-    build:
-      build_starting:
-        image: python:2
-        commands:
-          - curl https://api.ciscospark.com/v1/messages -X POST -H "Authorization:Bearer $$SPARK_TOKEN" --data "roomId=$$SPARK_ROOM" --data "text=Drone kicking off build $CI_BUILD_NUMBER"
-      run_tests:
-        image: python:2-alpine
-        commands:
-          - pip install -r requirements.txt
-          - python testing.py
-
-    publish:
-      docker:
-        repo: $$DOCKER_USERNAME/cicd_demoapp
-        tag: latest
-        username: $$DOCKER_USERNAME
-        password: $$DOCKER_PASSWORD
-        email: $$DOCKER_EMAIL
+	build:
+	  build_starting:
+	    image: python:2
+	    commands:
+	      - echo "Beginning new build"
+	  run_tests:
+	    image: python:2-alpine
+	    commands:
+	      - pip install -r requirements.txt
+	      - python testing.py
+	      
+	publish:
+	  docker:
+	    repo: $$DOCKER_USERNAME/cicd_demoapp
+	    tag: latest
+	    username: $$DOCKER_USERNAME
+	    password: $$DOCKER_PASSWORD
+	    email: $$DOCKER_EMAIL          
     ```
 
 2. As part of the security of drone, every change to the _.drone.yml_ file requires the secrets file to be recreated.  Since we've updated this file, we need to re-secure our secrets file.
+
     ```
     # Replace USERNAME with your GitHub username
     drone secure --repo USERNAME/cicd_demoapp --in drone_secrets.yml
@@ -73,6 +74,8 @@ cd ~/coding/cicd_demoapp
         ```
 
 3. Now commit and push the changes to the drone configuraiton and secrets file to GitHub.
+	* **Remember if you are using an IDE, be careful not to commit & push the changes to the file drone_secrets.yml**
+
     ```
     # add the file to the git repo
     git add .drone.sec
@@ -85,26 +88,29 @@ cd ~/coding/cicd_demoapp
     git push
     ```
 
-4. Now check the Drone web interface. A new build should have kicked off.  Also, watch for the Spark message to come through in the client. 
+4. Now check the Drone web interface. A new build should have kicked off.  
 
     ![Drone Build](images/drone_3rd_build.png)
 
-5. If the build reports a **Failure**, or the Spark message never comes, check the log to see what might have gone wrong.  Common reasons include forgetting to re-create the secrets file, forgetting to commit the secrets file after recreating, or mis-entered credentials in the plain text secrets file.
+5. If the build reports a **Failure**, check the log to see what might have gone wrong.  Common reasons include forgetting to re-create the secrets file, forgetting to commit the secrets file after recreating, or mis-entered credentials in the plain text secrets file.
 6. Once the build completes, log into [hub.docker.com](hub.docker.com), and open your repo.  Click the _Tags_ tab.  You should see a new tag of _latest_ displayed.  This is the container that was build and pushed up by drone.
 
     ![Docker Hub](images/docker_hub_repo_tags.png)
 
 ## Current Build Pipeline Status
 
-Okay, so drone said it did something and we got a Spark message... but you may be wondering what actually happened.  This image and walkthrough shows the steps that are occuring along the way.
+Okay, so drone said it did something... but you may be wondering what actually happened.  This image and walkthrough shows the steps that are occuring along the way.
 
 ![Stage 2 Diagram](images/stage_2_diagram.png)
 
 1. You committed and pushed code to GitHub.com
 2. GitHub sent a WebHook to the Drone server notifying it of the committed code.
-3. Drone checks the _.drone.yml_ file and executes the commands in the _build_ phase. During this phase, Drone will: 
-  * Fetch a container from hub.docker.com.  This container is identified in the `image: python:2` line of the drone config file.  Drone will run the commands and tests described in this phase from the fetched container
-  * Send a notification message to the subscribed Spark room stating that the build has begun. 
+3. Drone checks the _.drone.yml_ file and executes the commands in the _build_ phase. During this phase, Drone has two steps: 
+	* *build_starting* 	
+  		* Fetch a container from hub.docker.com to begin the build.  This container is identified in the `image: python:2` line of the drone config file.  Drone will run the commands listed in this section
+	* *run_tests*
+  		* Fetch a container from hub.docker.com to do the testing.  This container is identified in the `image: python:2-alpine` line of the drone config file.  Drone will run the tests described by the commands listed in this section
+
 4. Drone checks the _.drone.yml_ file and executes the commands in the _publish_ phase. During this phase, Drone will: 
   * Build a Docker Container using the Dockerfile definition included in the Git repo
   * Push the container up to hub.docker.com using the credentials contained in the secrets file
