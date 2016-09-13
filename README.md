@@ -77,7 +77,9 @@ If you will be completing the lab using your native workstation, you will need t
 
 ### Option 2: Run the Lab within a Container
 
-If your workstation is Windows based, or you prefer to NOT use your native workstation, you can run the lab exercises from within a Docker container.  _To use this method, you will need to be able to run a Docker container on a host machine somewhere._
+If your workstation is Windows based, or you prefer to NOT use your native workstation, you can run the lab exercises from within a Docker container.  
+
+**_To use this method, you will need to be able to run a Docker container on a host machine somewhere._**
 
 From your Docker host, run the following command to pull down and enter an interactive shell on the provided development container.
 
@@ -91,7 +93,8 @@ docker run -it --name cicdlab hpreston/devbox:cicdlab
 
 This will put you at a prompt similar to the above.  The container is a Linux based working environment with the following utilities and software installed and ready to use.
 
-* vim
+* nano 
+	* Provided as a text editor to use for executing the lab steps
 * git
 * docker
   * the container has the docker tools installed, but the `docker run` command above will **NOT** enable you to run additional containers from inside
