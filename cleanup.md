@@ -1,8 +1,16 @@
+[item]: # (slide)
+
 ## CleanUp - Uninstall your Application
+
+[item]: # (/slide)
 
 In this lab we built and put to use a full CICD pipeline for a very simple application.  Full production application pipelines are more involved with a greater amount of testing to ensure only good code is deployed, but the basic steps and process are the same.
 
+[item]: # (slide)
+
 ## Uninstall your application
+
+[item]: # (/slide)
 
 **_In this step you will be entering several commands in a terminal window.  These need to be run from your local repo directory.  If you followed the directions when cloning the repo locally, this command will place you in the correct directory_**
 
@@ -13,6 +21,8 @@ cd ~/coding/cicd_demoapp
 From the root of your code repository...
 
 1. Execute the uninstallation script.
+
+[item]: # (slide)
 
     ```
     $ ./app_uninstall.sh
@@ -39,7 +49,15 @@ From the root of your code repository...
 
     ```
 
+[item]: # (/slide)
+
 2. The application has now been destroyed.  
 
+[item]: # (slide)
+
 ## Wasn't that Fun?
+
+![](http://imapex.io/images/imapex_standing_text_sm.png)
+
+[item]: # (/slide)
 

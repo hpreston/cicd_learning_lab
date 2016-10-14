@@ -21,20 +21,36 @@ docker start -i cicdlab
 [root@cf95a414877e coding]#
 ```
 
+[item]: # (slide)
+
 ## Let's put that pipeline to use!
+
+[item]: # (/slide)
 
 Now that we have our full CICD pipeline up and running, let's make some application changes and watch them deploy.
 
+[item]: # (slide)
+
 ## Verify that the default app status
+
+[item]: # (/slide)
 
 The default demo app has a single route `hello/world`.  We will be adding an additional route to the application, but let's verify that it doesn't exist already.
 
 1. Try to navigate to `hello/universe` at your application.  This would be available at a URL such as `http://class-USERNAME.mantl.domain.com/hello/universe`, but replace **USERNAME** with your Docker Username, and **mantl.domain.com** with the Lab Application Domain provided by your instructor.
 2. You should get back a page not found error.
 
+[item]: # (slide)
+
     ![App Hello Universe Error](images/app_hello_universe_error.png)
 
+[item]: # (/slide)
+
+[item]: # (slide)
+
 ## Add /hello/universe to the app
+
+[item]: # (/slide)
 
 **_In this step you will be entering several commands in a terminal window.  These need to be run from your local repo directory.  If you followed the directions when cloning the repo locally, this command will place you in the correct directory_**
 
@@ -44,37 +60,43 @@ cd ~/coding/cicd_demoapp
 
 1. In your editor or IDE, open `demoapp.py` and add the new class and resource for HelloUniverse.  You can simply copy and paste the below into your editor.
 
-    ```
-    from flask import Flask, request
-    from flask_restful import Resource, Api, reqparse
+[item]: # (slide)
+
+```
+from flask import Flask, request
+from flask_restful import Resource, Api, reqparse
 
 
-    app = Flask(__name__)
-    app = Flask(__name__)
-    api = Api(app)
+app = Flask(__name__)
+app = Flask(__name__)
+api = Api(app)
 
-    class HelloWorld(Resource):
-        def get(self):
-            text = "Hello World!"
-            return text
+class HelloWorld(Resource):
+    def get(self):
+        text = "Hello World!"
+        return text
 
-    api.add_resource(HelloWorld, '/hello/world')
+api.add_resource(HelloWorld, '/hello/world')
 
-    class HelloUniverse(Resource):
-        def get(self):
-            text = "Hello Universe!"
-            return text
+class HelloUniverse(Resource):
+    def get(self):
+        text = "Hello Universe!"
+        return text
 
-    api.add_resource(HelloUniverse, '/hello/universe')
+api.add_resource(HelloUniverse, '/hello/universe')
 
-    if __name__ == '__main__':
-        # Runn Flask
-        app.run(debug=True, host='0.0.0.0', port=int("5000"))
-        # pass
+if __name__ == '__main__':
+    # Run Flask
+    app.run(debug=True, host='0.0.0.0', port=int("5000"))
 
-    ```
+```
+
+[item]: # (/slide)
+    
 2. Since we are **NOT** changing the actual build process stored in `.drone.yml`, we don't need to recreate the secrets file.  Once the build process is complete, as long as new tests or steps aren't added these files can be left alone.  Developers can focus on their code and changes, not the build process.
 3. Commit and push our updated application to begin the CICD process.
+
+[item]: # (slide)
 
     ```
     # add the file to the git repo
@@ -87,30 +109,51 @@ cd ~/coding/cicd_demoapp
     git push
     ```
 
+[item]: # (/slide)
+
 4. Check the drone server to verify the build has begun.  You can also monitor the Spark room for the completed message.
+
+[item]: # (slide)
 
     ![Drone Build](images/drone_6th_build.png)
 
+[item]: # (/slide)
+
 5. Once drone completes the build, check Marathon and watch as the application restarts.
+
+[item]: # (slide)
 
     ![Marathon App Restart](images/marathon_app_restart.png)
 
+[item]: # (/slide)
+
 6. Wait for Marathon to show the application as healthy.
+
+[item]: # (slide)
 
     ![Marathon App Healthy](images/marathon_app_healthy.png)
 
+[item]: # (/slide)
+
 7. Refresh the web page with the `hello/universe` page **Not Found**.  You should now have your new message available.
+
+[item]: # (slide)
 
     ![App Hello Universe](images/app_hello_universe.png)
 
+[item]: # (/slide)
+
 8. Feel free to experiment with more changes to the application.  Each commit will result in the application restarting with the updated code.
 
+[item]: # (slide)
 
 ## Current Build Pipeline Status
 
-Okay, so let's review the steps in the full pipeline.
-
 ![Final Diagram](images/stage_final_diagram.png)
+
+[item]: # (/slide)
+
+Okay, so let's review the steps in the full pipeline.
 
 1. You committed and pushed code to GitHub.com
 2. GitHub sent a WebHook to the Drone server notifying it of the committed code.
@@ -130,11 +173,14 @@ Okay, so let's review the steps in the full pipeline.
   * If the build was successful, send a Success notification
   * If the build failed, send a Failure notificiation and blame someone.
 
-## Next Step!
+[item]: # (slide)
 
-Time to move onto the final step, clean-up!
+## Next Step!
 
 8. [Clean-Up](cleanup.md)
 
+[item]: # (/slide)
+
+Time to move onto the final step, clean-up!
 
 

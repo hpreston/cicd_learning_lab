@@ -21,12 +21,26 @@ docker start -i cicdlab
 [root@cf95a414877e coding]#
 ```
 
+[item]: # (slide)
+
 ## Install your application
+
+[item]: # (/slide)
 
 Now that we have used CICD to automate the creation of a Docker container for our application, we can now deploy our application.  This step could certainly be automated as well, but in this lab we will manually install our application to illustrate the process and rely on automation to keep it up to date.
 
+[item]: # (slide)
+
 ## Investigate the installation process
 
+### Key Files
+* [sample-demoapp.json](https://github.com/hpreston/cicd_demoapp/blob/master/sample-demoapp.json) 
+* [app_install.sh](https://github.com/hpreston/cicd_demoapp/blob/master/app_install.sh) 
+* [app_uninstall.sh](https://github.com/hpreston/cicd_demoapp/blob/master/app_uninstall.sh) 
+
+[item]: # (/slide)
+
+### Steps
 1. Included in your repository are three files that are used to define, install, and uninstall the application.
     * [sample-demoapp.json](https://github.com/hpreston/cicd_demoapp/blob/master/sample-demoapp.json) is a template for the Marathon Application definition that will be used.  A custom version will be created at installation that references **YOUR** Docker container.
     * [app_install.sh](https://github.com/hpreston/cicd_demoapp/blob/master/app_install.sh) is a bash script that installs the demo application.  This has three steps.
@@ -38,7 +52,11 @@ Now that we have used CICD to automate the creation of a Docker container for ou
         2. Destroy your application using the REST API for Marathon.
 2. You could manually install the application using the Marathon GUI, however the GUI lacks the ability to configure certain parameters we need for the lab.  Besides... deploying through APIs is so much cooler!
 
+[item]: # (slide)
+
 ## Install your application
+
+[item]: # (/slide)
 
 **_In this step you will be entering several commands in a terminal window.  These need to be run from your local repo directory.  If you followed the directions when cloning the repo locally, this command will place you in the correct directory_**
 
@@ -48,7 +66,10 @@ cd ~/coding/cicd_demoapp
 
 From the root of your code repository...
 
+### Steps
 1. Execute the installation script. Remember to check the information the lab administrator has provided for the correct responses to the script prompts. Be sure to pay attention to the last few lines of the script output, as these will give you the URLs for your application (you'll need this to test the app) and the control interface for Marathon. 
+
+[item]: # (slide)
 
     ```
     ./app_install.sh
@@ -163,20 +184,35 @@ From the root of your code repository...
 
     https://control.mantl.domain.com/marathon
     ```
+    
+[item]: # (/slide)
+
 
 2. The application is now being deployed, and you can watch the progress from the lab console address (provided by the lab admin as well as at the end of the script output).
 
+[item]: # (slide)
+
     ![Marathon App Install](images/marathon_app_install.png)
+
+[item]: # (/slide)
 
 3. Once the application is fully deployed (shouldn't take more than 3 minutes), and shows healthy status in the console, you can visit your applicaiton at the URL that was provided at the end of installation script.
 
+[item]: # (slide)
+
     ![App Hello World](images/app_hello_world.png)
+
+[item]: # (/slide)    
+
+[item]: # (slide)
 
 ## Current Build Pipeline Status
 
-Okay, so building on the process from the previous step, this diagram shows what we've added.
-
 ![Manual Install Diagram](images/manual_install_diagram.png)
+
+[item]: # (/slide)
+
+Okay, so building on the process from the previous step, this diagram shows what we've added.
 
 1. You committed and pushed code to GitHub.com
 2. GitHub sent a WebHook to the Drone server notifying it of the committed code.
@@ -189,11 +225,14 @@ Okay, so building on the process from the previous step, this diagram shows what
 
 * ***You manually Install the application on Mantl***
 
-## Next Step!
+[item]: # (slide)
 
-Time to move onto the next step.
+## Next Step!
 
 5. [Stage 3 - Continuous Deployment](cicd_stage_3.md)
 
+[item]: # (/slide)
+
+Time to move onto the next step.
 
 

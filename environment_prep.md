@@ -21,12 +21,23 @@ docker start -i cicdlab
 [root@cf95a414877e coding]#
 ```
 
+[item]: # (slide)
+
 # Environment Prep
+
+[item]: # (/slide)
 
 With all the pre-reqs completed, you are ready to start the lab.  We'll start by setting up our new application code repo, container repository, and continuous integration server configuration.
 
+[item]: # (slide)
+
 ## Forking the cicd_demoapp GitHub Repo
 
+![GitHub Fork](images/github_fork.png)
+
+[item]: # (/slide)
+
+### Steps
 1. Log into GitHub and visit the demo app repo [hpreston/cicd_demoapp](https://github.com/hpreston/cicd_demoapp)
 2. Click **Fork** to create a copy of the repo in your account
 
@@ -34,6 +45,9 @@ With all the pre-reqs completed, you are ready to start the lab.  We'll start by
 
 3. Make a local clone of **YOUR** repo on your laptop.  Do NOT clone the `hpreston/cicd_demoapp` repo. In this case, we will create a directory called "coding". If you choose to deviate from that directory name, just remember what directory you created for your local repo, as this will be used multiple times through the lab. 
 
+[item]: # (slide)
+    **Cloning**
+    
     ```
     # if you don't have a local directory where you keep projects, create one
     mkdir ~/coding
@@ -46,9 +60,18 @@ With all the pre-reqs completed, you are ready to start the lab.  We'll start by
     git clone https://github.com/USERNAME/cicd_demoapp
 
     ```
+    
+[item]: # (/slide)
 
-## Create empty Docker Repository for the Application Container
+[item]: # (slide)
+    
+## Create Docker Repository 
 
+![Docker Hub New Repo](images/docker_hub_new_repo.png)
+
+[item]: # (/slide)
+
+### Steps
 1. Log into [hub.docker.com](http://hub.docker.com) with your account
 2. Click the blue **Create Repository** button in the upper right corner
 
@@ -58,9 +81,15 @@ With all the pre-reqs completed, you are ready to start the lab.  We'll start by
 
     ![Docker Hub New Repo](images/docker_hub_new_repo.png)
 
+[item]: # (slide)
 
 ## Activate the Repo in Drone
 
+![Drone Repos](images/drone_available_repos.png)
+
+[item]: # (/slide)
+
+### Steps
 1. **Make sure the lab administrator has enabled your GitHub account on the lab server.**
 2. Navigate to the drone server address provided by the lab administrator, and click **Login**.
 
@@ -77,7 +106,23 @@ With all the pre-reqs completed, you are ready to start the lab.  We'll start by
 
 6. On the **Active Repositories** tab, you should now see a new entry for the cicd_demoapp.  If you click on it, there should be no builds reported yet.
 
-## Application and Build Secrets File
+[item]: # (slide)
+
+## Build Secrets File
+
+```
+environment:
+  SPARK_TOKEN: <FROM YOUR DEVELOPER.CISCOSPARK.COM ACCOUNT>
+  SPARK_ROOM: <ROOMID PROVIDED BY THE LAB ADMIN>
+  DOCKER_USERNAME: <YOUR HUB.DOCKER.COM USERNAME>
+  DOCKER_PASSWORD: <YOUR HUB.DOCKER.COM PASSWORD>
+  DOCKER_EMAIL: <YOUR HUB.DOCKER.COM EMAIL ADDRESS>
+  MANTL_USERNAME: <MANTL USER PROVIDED BY LAB ADMIN>
+  MANTL_PASSWORD: <MANTL PASSWORD PROVIDED BY LAB ADMIN>
+  MANTL_CONTROL: <MANTL SERVER ADDRESS PROVIDED BY LAB ADMIN>
+```
+
+[item]: # (/slide)
 
 In order for Drone to be able to do the hard work of testing your application, building a container and publishing it to your registry, notifying your team of status, and deploying the updated code to production, it requires credentials for several systems to act on your behalf.  These details are often referred to as _secrets_ in application development.   As a general rule, you want to protect these details through encryption to maintain their security.  Commiting your passwords to a code repo is never a good idea, but it is especially bad when using a public repo like github.com.
 
@@ -88,7 +133,7 @@ Drone provides a method to create an encrypted file with needed secrets that can
 ```
 cd ~/coding/cicd_demoapp
 ```
-
+### Steps
 1. The drone utilities on your laptop need to know the address and access information for the drone server you are using.  We use session environment variables for this. You will replace the variable's value with the information the lab admin gives you. The follow code can be copied and pasted directly into a terminal window if you'd like to do that, but you can also just type in the line that doesn't start with the hash mark.
 
     ```
@@ -165,9 +210,16 @@ cd ~/coding/cicd_demoapp
 
 **In each of the following steps, you will be repeating the steps to secure your secrets.  If you close your terminal window, you will need to re-export the DRONE_SERVER and DRONE_TOKEN values**
 
+[item]: # (slide)
+
 ## Next Step!
+
+[Stage 1 - Continuous Integration](cicd_stage_1.md)
+
+[item]: # (/slide)
 
 Now that you have prepped your application code repository, docker registry and cicd server, move onto the next step.
 
-[Stage 1 - Continuous Integration](cicd_stage_1.md)
+
+
 
