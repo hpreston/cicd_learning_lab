@@ -101,7 +101,7 @@ publish:
     git add .drone.yml
 
     # commit the change
-    git commit -m "Updated Build Phase to run UnitTests"
+    git commit -m "Added Publish phase to Drone Config"
 
     # push changes to GitHub
     git push
