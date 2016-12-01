@@ -1,10 +1,10 @@
 
     ```
     # add the file to the git repo
-    git add demoapp.py
+    git add testing.py
 
     # commit the change
-    git commit -m "Added hello/universe to the application"
+    git commit -m "Added new Tests for hello/universe"
 
     # push changes to GitHub
     git push

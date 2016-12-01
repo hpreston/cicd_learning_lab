@@ -58,6 +58,79 @@ The default demo app has a single route `hello/world`.  We will be adding an add
 cd ~/coding/cicd_demoapp
 ```
 
+## Build the Test
+
+1. In your editor or IDE, open `testing.py` and add the new tests for /hello/universe.  You can simply copy and paste the below into your editor.
+
+[item]: # (slide)
+
+```
+import demoapp
+import unittest
+
+
+class FlaskTestCase(unittest.TestCase):
+
+    def setUp(self):
+        demoapp.app.config['TESTING'] = True
+        self.app = demoapp.app.test_client()
+
+    def test_correct_http_response(self):
+        resp = self.app.get('/hello/world')
+        self.assertEquals(resp.status_code, 200)
+
+    def test_correct_content(self):
+        resp = self.app.get('/hello/world')
+        self.assertEquals(resp.data, '"Hello World!"\n')
+
+    def test_universe_correct_http_response(self):
+        resp = self.app.get('/hello/universe')
+        self.assertEquals(resp.status_code, 200)
+
+    def test_universe_correct_content(self):
+        resp = self.app.get('/hello/universe')
+        self.assertEquals(resp.data, '"Hello Universe!"\n')
+
+    def tearDown(self):
+        pass
+
+if __name__ == '__main__':
+    unittest.main()
+
+```
+
+[item]: # (/slide)
+
+2. Since we are **NOT** changing the actual build process stored in `.drone.yml`, we don't need to recreate the secrets file.  Once the build process is complete, as long as new tests or steps aren't added these files can be left alone.  Developers can focus on their code and changes, not the build process.
+3. Commit and push our updated test to begin the CICD process.
+
+[item]: # (slide)
+
+    ```
+    # add the file to the git repo
+    git add testing.py
+
+    # commit the change
+    git commit -m "Added new Tests for hello/universe"
+
+    # push changes to GitHub
+    git push
+    ```
+
+[item]: # (/slide)
+
+4. Check the drone server to check the status of the build.  You can also check in Spark for Status updates.  
+
+[item]: # (slide)
+
+    ![Drone Build](images/drone_5-5_build.png)
+
+[item]: # (/slide)
+
+5. The build failed because we built the test **BEFORE** the feature.  That's test driven development, and the failure is exactly what we want to see.  When drone fails in the testing, the new container isn't built and published.  
+
+### Build the Feature
+
 1. In your editor or IDE, open `demoapp.py` and add the new class and resource for HelloUniverse.  You can simply copy and paste the below into your editor.
 
 [item]: # (slide)

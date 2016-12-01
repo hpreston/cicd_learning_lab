@@ -1,30 +1,36 @@
 
 ```
-from flask import Flask, request
-from flask_restful import Resource, Api, reqparse
+import demoapp
+import unittest
 
 
-app = Flask(__name__)
-app = Flask(__name__)
-api = Api(app)
+class FlaskTestCase(unittest.TestCase):
 
-class HelloWorld(Resource):
-    def get(self):
-        text = "Hello World!"
-        return text
+    def setUp(self):
+        demoapp.app.config['TESTING'] = True
+        self.app = demoapp.app.test_client()
 
-api.add_resource(HelloWorld, '/hello/world')
+    def test_correct_http_response(self):
+        resp = self.app.get('/hello/world')
+        self.assertEquals(resp.status_code, 200)
 
-class HelloUniverse(Resource):
-    def get(self):
-        text = "Hello Universe!"
-        return text
+    def test_correct_content(self):
+        resp = self.app.get('/hello/world')
+        self.assertEquals(resp.data, '"Hello World!"\n')
 
-api.add_resource(HelloUniverse, '/hello/universe')
+    def test_universe_correct_http_response(self):
+        resp = self.app.get('/hello/universe')
+        self.assertEquals(resp.status_code, 200)
+
+    def test_universe_correct_content(self):
+        resp = self.app.get('/hello/universe')
+        self.assertEquals(resp.data, '"Hello Universe!"\n')
+
+    def tearDown(self):
+        pass
 
 if __name__ == '__main__':
-    # Run Flask
-    app.run(debug=True, host='0.0.0.0', port=int("5000"))
+    unittest.main()
 
 ```
 

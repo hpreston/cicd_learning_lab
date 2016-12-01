@@ -118,7 +118,7 @@ notify:
     git add .drone.yml
 
     # commit the change
-    git commit -m "Updated Build Phase to run UnitTests"
+    git commit -m "Added Notify Phase"
 
     # push changes to GitHub
     git push
