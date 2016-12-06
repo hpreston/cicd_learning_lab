@@ -181,11 +181,27 @@ docker start -i cicdlab
 
 ## Lab Environment Details
 
-* Drone Build Server Address *(referred to as DRONE_SERVER)*
-* Mantl Control Server Address *(referred to as "Mantl Control Server")*
-* Mantl Username & Password
-* Mantl Application Domain *(referred to as "Lab Application domain")*
-* Spark RoomId for Notifications *(a hash key provided for Spark Room notifications and referred to as SPARK_ROOM)*
+Your instructor will provide you an TXT file with this content needed to complete the lab.  
+
+```
+# CICD Learning Lab Infrastructure Details
+
+# Lab Guide 
+https://github.com/imapex-training/cicd_learning_lab/blob/master/README.md
+
+# Build Server
+drone server address: 
+
+# Target Cloud Infrastructure
+Mantl Control Server Address: 
+Mantl Username: 
+Mantl Password: 
+Mantl Application Domain: 
+
+# Spark Room Info
+Spark Room Name: 
+Spark RoomId: 
+```
 
 [item]: # (/slide)
 
