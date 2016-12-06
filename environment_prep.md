@@ -38,12 +38,12 @@ With all the pre-reqs completed, you are ready to start the lab.  We'll start by
 [item]: # (/slide)
 
 ### Steps
-1. Log into GitHub and visit the demo app repo [hpreston/cicd_demoapp](https://github.com/hpreston/cicd_demoapp)
+1. Log into GitHub and visit the demo app repo [imapex-training/cicd_demoapp](https://github.com/imapex-training/cicd_demoapp)
 2. Click **Fork** to create a copy of the repo in your account
 
     ![GitHub Fork](images/github_fork.png)
 
-3. Make a local clone of **YOUR** repo on your laptop.  Do NOT clone the `hpreston/cicd_demoapp` repo. In this case, we will create a directory called "coding". If you choose to deviate from that directory name, just remember what directory you created for your local repo, as this will be used multiple times through the lab. 
+3. Make a local clone of **YOUR** repo on your laptop.  Do NOT clone the `imapex-training/cicd_demoapp` repo. In this case, we will create a directory called "coding". If you choose to deviate from that directory name, just remember what directory you created for your local repo, as this will be used multiple times through the lab. 
 
 [item]: # (slide)
     **Cloning**
