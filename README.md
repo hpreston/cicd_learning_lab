@@ -111,7 +111,7 @@ If you will be completing the lab using your native workstation, you will need t
 * drone command line tools
   * drone is the CICD tool used for this lab, and the command line tools are used to properly secure the secret information (i.e. userids, passwords) used for all the services utilized
   * _the tools require docker to be installed and working_
-  * Installation Instructions: [http://readme.drone.io/devs/cli](http://readme.drone.io/devs/cli)
+  * Installation Instructions: [http://readme.drone.io/0.4/devs/cli/](http://readme.drone.io/0.4/devs/cli/) 
   * Basic Installation Steps
     * Linux
       * `curl http://downloads.drone.io/drone-cli/drone_linux_amd64.tar.gz | tar zx`
