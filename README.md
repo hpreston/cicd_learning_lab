@@ -142,7 +142,7 @@ If you will be completing the lab using your native workstation, you will need t
 
 [item]: # (slide)
 
-* Installation Instructions: [http://readme.drone.io/devs/cli](http://readme.drone.io/devs/cli)
+* Installation Instructions: [http://readme.drone.io/0.4/devs/cli/](http://readme.drone.io/0.4/devs/cli/) 
 * Basic Installation Steps
 * Linux
   * `curl http://downloads.drone.io/drone-cli/drone_linux_amd64.tar.gz | tar zx`
