@@ -1,3 +1,0 @@
-
-## Uninstall your application
-

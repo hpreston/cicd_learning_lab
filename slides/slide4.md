@@ -1,5 +1,0 @@
-
-## Introduction
-
-![](images/labcomponents.png)
-

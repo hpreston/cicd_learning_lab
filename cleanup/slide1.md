@@ -1,3 +1,0 @@
-
-## CleanUp - Uninstall your Application
-
