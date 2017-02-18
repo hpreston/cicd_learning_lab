@@ -13,6 +13,10 @@
 
 [item]: # (/slide)
 
+### Presentation Slides
+
+A slide show version of this presentation is available at this link: [CICD Learning Lab Slides](https://rawgit.com/imapex-training/cicd_learning_lab/master/output/index.html#/)
+
 [item]: # (slide)
 
 ## Lab Agenda
